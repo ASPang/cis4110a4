@@ -16,6 +16,33 @@ from fractions import gcd
 import constantVar as const
 import decrypt
 
+#--- Tally conversion ---#
+#------------------------------------------   
+# prepareTallyEncMsg
+#------------------------------------------
+# The function calculates prepares the user's tally message   
+#------------------------------------------
+# Parameters:
+#  num - The number 
+#
+# Returns:
+#  1  - Number passed over is prime.
+#  0  - Number checked is not prime.
+#-------------------------------------------
+def prepareTallyEncMsg(tallyStr):
+   sum = 0  #Stores all the user's voting result
+   vote = 0 #stores a single vote result either 0 (no) or 1 (yes)
+   
+   #Go through the entire tally string to determine whom was voted
+   for c in range(len(tallyStr)):
+      vote = tallyStr[c]
+      print(vote, " ", c, " ", sum, " ", const.base)
+      if (int(vote) == 1):
+         sum = sum + const.base**c
+   
+   print("tally message = ", sum)
+   return sum
+   
 #--- Encryption Functions ---#
 #Encrypt the votes
 def encrypt():
@@ -101,6 +128,11 @@ def main():
    genG()
    callLamda()
    calMew()
+   
+   prepareTallyEncMsg("01000")
+   prepareTallyEncMsg("00101")
+   prepareTallyEncMsg("00000")
+   prepareTallyEncMsg("00010")
    
    decrypt.tallyVotes()
    
