@@ -45,12 +45,20 @@ def prepareTallyEncMsg(tallyStr):
    
 #--- Encryption Functions ---#
 #Encrypt the votes
-def encrypt():
+def encryptVote(vote):
    print("Starting to encrypt")
-
-def createVote():
-   print("Creating a vote")
-
+   r = genR()
+   #r = 10966
+   encMsg = const.g**vote * r**const.n % const.n2
+   
+   print "g = ", const.g, " r = ", r, " vote = ", vote, " encryped message = ", encMsg
+   return encMsg
+   
+#Generate r value used to encrypt the vote
+def genR():
+   r = genRamdom(3, const.n)
+   return r
+   
 #Generate g value
 def genG():
    g = genRamdom(3, const.n2)
@@ -125,14 +133,16 @@ def modinv(a, m):
 def main():
    print("--Main()--")
    
-   genG()
+   #genG()
    callLamda()
    calMew()
    
-   prepareTallyEncMsg("01000")
-   prepareTallyEncMsg("00101")
-   prepareTallyEncMsg("00000")
-   prepareTallyEncMsg("00010")
+   # prepareTallyEncMsg("01000")
+   # prepareTallyEncMsg("00101")
+   # prepareTallyEncMsg("00000")
+   # prepareTallyEncMsg("00010")
+   
+   encryptVote(prepareTallyEncMsg("00010"))
    
    decrypt.tallyVotes()
    

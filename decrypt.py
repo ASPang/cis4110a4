@@ -11,6 +11,7 @@
 # 
 ###########################################
 #from math import floor 
+import encrypt
 import math
 import constantVar as const
    
@@ -28,7 +29,8 @@ def tallyVotes():
    
    #Go through all the encrypted votes
    for val in const.encVotes:
-      product *= val
+      if (val != 0):
+         product *= val
    
    result = product % const.n2   
    print(result, " ", const.n2)
@@ -64,4 +66,40 @@ def decryptTally(encTally):
       print tallyResult, decryptTally
       
    return tallyResult
+   
+
+def getAllEncVotes():   
+   with open('vote.txt') as voteFile:
+      voteAry = voteFile.readlines()   
+      
+   #Convert the votes into an number
+   const.encVotes = [0 for i in range(const.nVoters)]
+   
+   for i in range(len(voteAry)):
+      const.encVotes[i] = int(voteAry[i])
+      #print voteAry[i], " ", const.encVotes[i]
+      
+   #print voteAry, " ", len(voteAry), " ", const.encVotes, " ", const.encVotes[0]
+   
+   return voteAry
+    
+    
+#--- Main Function ---#
+def main():
+   print("--Main()--")   
+   
+   encrypt.callLamda()
+   encrypt.calMew()
+   
+   #Get all the encrypted votes stored
+   getAllEncVotes()
+   
+   print const.encVotes
+   
+   #Tally all the votes
+   tallyVotes()
+   
+   
+if __name__ == "__main__":
+   main()    
    

@@ -139,20 +139,28 @@ def getVoterID():
 
    print "Your have reached the max number of attempts."
    return False
-   
+
+#Save encryption to file
+def saveEncVote(encVote):
+   with open("vote.txt", "a") as myfile:
+      myfile.write(str(encVote))
+      myfile.write("\n")
+
+      
 #--- Main Function ---#
 def main():
    print("--Main()--")
    
-   encrypt.genG()
+   #encrypt.genG()
    encrypt.callLamda()
    encrypt.calMew()
    
    if (getVoterID()):
-      const.votes[0] = getVote()
-     
-   
-   # decrypt.tallyVotes()
+      vote = getVote()
+      encVote = encrypt.encryptVote(vote)
+      
+      #Store the vote
+      saveEncVote(encVote)
    
 if __name__ == "__main__":
    main()
