@@ -10,13 +10,12 @@
 # Description:
 # 
 ###########################################
-#from math import floor 
 import encrypt
 import math
 import constantVar as const
    
-#--- Tally Function ---#
-
+   
+############## Tally Function #############
 #------------------------------------------   
 # tallyVotes
 #------------------------------------------
@@ -24,7 +23,7 @@ import constantVar as const
 # product of all encrypted votes modulo n^2
 #------------------------------------------
 def tallyVotes():
-   print("Tallying votes")
+   print "---Tallying votes---"
    product = 1
    
    #Go through all the encrypted votes
@@ -36,25 +35,25 @@ def tallyVotes():
    print(result, " ", const.n2)
    decryptTally(result)
 
-#--- Decrypt ---#
+################# Decrypt ################
 #------------------------------------------   
 # decryptTally
 #------------------------------------------
 # Decrypts the tallied counted votes  
 #------------------------------------------
 # Parameters:
-#  tally - The encrypted tally of votes
+#  encTally - The encrypted tally of votes
 #
 # Returns:
-#  
+#  tallyResult - Tallied votes for each candidate
 #-------------------------------------------
 def decryptTally(encTally):
-   print("Decrypting tally result")
+   print "---Decrypting tally result---"
    
    divisor = 10
    numVote = 0 #Tempoarily stores the number of votes for one candidate
    decryptTally = ((encTally**const.lamda % const.n2 - 1) / const.n) * const.mew % const.n
-   print(decryptTally, " ", const.n2)
+   print decryptTally, " ", const.n2
    
    #Initialize array where all candiates currently have 0 votes
    tallyResult = [0 for i in range(const.nCandi)] 
@@ -67,8 +66,18 @@ def decryptTally(encTally):
       
    return tallyResult
    
-
+#------------------------------------------   
+# getAllEncVotes
+#------------------------------------------
+# Get all the encrypted votes in a file
+#------------------------------------------
+# Returns:
+#  voteAry  - An array of all the encrypted votes
+#-------------------------------------------
 def getAllEncVotes():   
+   print "---Getting encrypted votes on file---"
+   
+   #Get all encrypted votes on file
    with open('vote.txt') as voteFile:
       voteAry = voteFile.readlines()   
       
@@ -79,7 +88,7 @@ def getAllEncVotes():
       const.encVotes[i] = int(voteAry[i])
       #print voteAry[i], " ", const.encVotes[i]
       
-   #print voteAry, " ", len(voteAry), " ", const.encVotes, " ", const.encVotes[0]
+   #print voteAry, " ", len(voteAry), " ", const.encVotes, "\n"
    
    return voteAry
     

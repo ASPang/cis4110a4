@@ -14,49 +14,31 @@ import constantVar as const
 import encrypt
 import decrypt
 import sys
+  
 
-#--- Tally conversion ---#
+############### User Input ###############
 #------------------------------------------   
-# prepareTallyEncMsg
+# getVote
 #------------------------------------------
-# The function calculates prepares the user's tally message   
+# The function prompts the user to make a vote   
 #------------------------------------------
-# Parameters:
-#  num - The number 
-#
 # Returns:
-#  1  - Number passed over is prime.
-#  0  - Number checked is not prime.
+#  The vote message which is number calculated
 #-------------------------------------------
-def prepareTallyEncMsg(tallyStr):
-   sum = 0  #Stores all the user's voting result
-   vote = 0 #stores a single vote result either 0 (no) or 1 (yes)
-   
-   #Go through the entire tally string to determine whom was voted
-   for c in range(len(tallyStr)):
-      vote = tallyStr[c]
-      print(vote, " ", c, " ", sum, " ", const.base)
-      if (int(vote) == 1):
-         sum = sum + const.base**c
-   
-   print("tally message = ", sum)
-   return sum
-   
-
-#--- User Input ---#
 def getVote():
    prompt = True
    candidate = ""
-   ans = ["1", "2", "3", "4", "5", "", " ", "\n"]
+   ans = ["1", "2", "3", "4", "5", "", " ", "\n"]  #Possible choices that the user can enter
    
+   #Prompt to select one candidate
    while(prompt == True):
       #Prompt the user on whom they want to vote for
       print "The following candidates are running for this election: "
-      print "\t 1) A"
-      print "\t 2) B"
-      print "\t 3) C"
-      print "\t 4) D"
-      print "\t 5) E"
+      print "\t 1) Alice"
+      print "\t 2) Bob"
+      print "\t 3) Charlie"
+      print "\t 4) David"
+      print "\t 5) Elliot"
       print "Note: Only one candidate can be selected. \n"
       
       print "Enter candidate coresponding number: "
@@ -86,19 +68,30 @@ def getVote():
          elif(a == ans[len(ans)-1]):
             print "\n***Input wasn't accepted. Please enter the number beside the candidate's name you wish to vote for.***"
    return 0
-   
-   
-#Double check with user if they want to continue with selection
+    
+#------------------------------------------   
+# checkVote
+#------------------------------------------
+# Double check with user if they want to continue with selection
+#------------------------------------------
+# Parameters:
+#  candi - The candidate number that was selected 
+#
+# Returns:
+#  True  - The user wants to continue with their vote
+#  False - User wants to make a different selection
+#-------------------------------------------
 def checkVote(candi):
    userInput = ""
-   ans = ["y", "Y", "n", "N"]
+   ans = ["y", "Y", "n", "N"] #Possible choices user can enter
    
+   #Get the user input
    print "\nAre you sure you want to vote for candidate #", candi, "?"
    print "Please enter 'y' if you would like to continue with choice, or 'n' if you want to reselect."
    sys.stdout.flush()
    userInput = raw_input("")
    
-   #Check what user has inputed is a correct value
+   #Check what user has inputted is a correct value
    for a in ans:
       if (a == userInput):         
          #Check to see if the answer was yes or no
@@ -110,13 +103,23 @@ def checkVote(candi):
          #Re-prompt the user 
          print "\n***Input wasn't accepted. Please enter 'y' if you would like to continue with choice, or 'n' if you want to reselect.***"
          return checkVote(candi)
-   
 
-#Determine if the user can vote
+#------------------------------------------   
+# getVoterID
+#------------------------------------------
+# Determine if the user can vote
+#------------------------------------------
+# Parameters:
+#  candi - The candidated number that was selected 
+#
+# Returns:
+#  True  - The user is validated
+#  False - Failed to validate user
+#-------------------------------------------
 def getVoterID():   
    prompt = 0
    candidate = ""
-   ans = ["123456", "111", "222", "333", "444"]
+   ans = ["123", "111", "222", "333", "444", "555", "666", "777", "888"]   #List of possible voters
    
    while(prompt < 3):
       #Prompt the user for their voter's ID
@@ -140,21 +143,27 @@ def getVoterID():
    print "Your have reached the max number of attempts."
    return False
 
-#Save encryption to file
+#------------------------------------------   
+# saveEncVote
+#------------------------------------------
+# Save encrypted vote to file
+#------------------------------------------
+# Parameters:
+#  encVote - Encrypted vote
+#-------------------------------------------
 def saveEncVote(encVote):
    with open("vote.txt", "a") as myfile:
       myfile.write(str(encVote))
       myfile.write("\n")
 
       
-#--- Main Function ---#
+############### Main Function ###############
 def main():
-   print("--Main()--")
-   
-   #encrypt.genG()
+   #Calculate the lamda and mew used for private key
    encrypt.callLamda()
    encrypt.calMew()
    
+   #Determine if the person can vote
    if (getVoterID()):
       vote = getVote()
       encVote = encrypt.encryptVote(vote)
