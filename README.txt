@@ -26,7 +26,7 @@ The system will prompt you for one of nine voting IDs which can be any of the fo
 Once the system accepts you, follow the prompts and the votes. At the end the vote will be encrypted and stored in the "vote.txt" file.
 
 ----------------------------
-HOW DECRYPT VOTE TALLY
+HOW TO DECRYPT VOTE TALLY
 ----------------------------
 
 RUN:
