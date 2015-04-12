@@ -4,11 +4,15 @@
 # Program: E-Voting with Paillier Encryption
 # File Name: interface.py
 #
-# Authors: Maame Adwoa Bempomaa, Melissa Neubert, Angela Pang
+# Authors: Maame Apenteng, Melissa Neubert, Angela Pang
 # Date Created: 2015/04/08
 #
 # Description:
-# 
+#  This program provides the interface to the
+#  simulation voting system. It allows the user
+#  to authenticate him/herself.
+#  Once the vote has been encrypted it will
+#  record it to "vote.txt" file on the server.
 ###########################################
 import constantVar as const
 import encrypt

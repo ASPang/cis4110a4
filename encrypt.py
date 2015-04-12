@@ -4,11 +4,16 @@
 # Program: E-Voting with Paillier Encryption
 # File Name: encrypt.py
 #
-# Authors: Maame Adwoa Bempomaa, Melissa Neubert, Angela Pang
+# Authors: Maame Apenteng, Melissa Neubert, Angela Pang
 # Date Created: 2015/04/08
 #
 # Description:
-# 
+#  The encryption process is called through the
+#  voting interface of the system. The encryption
+#  of the vote is done using Paillier Cryptosystem.
+#  It shows some of the steps for the encryption 
+#  process. In actual system those steps will not
+#  be displayed.  
 ###########################################
 import random
 from fractions import gcd
@@ -55,14 +60,13 @@ def prepareTallyEncMsg(tallyStr):
 #  encMsg   - Returns the encrypted vote value
 #-------------------------------------------
 def encryptVote(vote):
-   print "---Starting to encrypt---"
    #Generate a r value that is element of n
    r = genR()
 
    #Encrypt the vote message
    encMsg = const.g**vote * r**const.n % const.n2
    
-   print "g = ", const.g, " r = ", r, " vote = ", vote, " encryped message = ", encMsg
+   #print " r = ", r, " vote = ", vote, " encryped message = ", encMsg
    return encMsg
 
 #------------------------------------------   

@@ -4,7 +4,7 @@
 # Program: E-Voting with Paillier Encryption
 # File Name: constantVar.py
 #
-# Authors: Maame Adwoa Bempomaa, Melissa Neubert, Angela Pang
+# Authors: Maame Apenteng, Melissa Neubert, Angela Pang
 # Date Created: 2015/04/08
 #
 # Description:
